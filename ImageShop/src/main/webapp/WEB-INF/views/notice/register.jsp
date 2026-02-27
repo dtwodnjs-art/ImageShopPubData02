@@ -20,23 +20,18 @@
 	<jsp:include page="/WEB-INF/views/common/menu.jsp" />
 	<div align="center">
 		<h2>
-			<spring:message code="board.header.register" />
+			<spring:message code="notice.header.register" />
 		</h2>
-		<form:form modelAttribute="board" action="/board/register"
+		<form:form modelAttribute="notice" action="/notice/register"
 			method="post">
 			<table>
 				<tr>
-					<td><spring:message code="board.title" /></td>
+					<td><spring:message code="notice.title" /></td>
 					<td><form:input path="title" /></td>
 					<td><font color="red"><form:errors path="title" /></font></td>
 				</tr>
 				<tr>
-					<td><spring:message code="board.writer" /></td>
-					<td><form:input path="writer" readonly="true" /></td>
-					<td><font color="red"><form:errors path="writer" /></font></td>
-				</tr>
-				<tr>
-					<td><spring:message code="board.content" /></td>
+					<td><spring:message code="notice.content" /></td>
 					<td><form:textarea path="content" /></td>
 					<td><font color="red"><form:errors path="content" /></font></td>
 				</tr>
@@ -44,16 +39,16 @@
 		</form:form>
 
 		<div>
-			<sec:authorize access="isAuthenticated()">
+			<sec:authorize access="hasRole('ROLE_ADMIN')">
 				<button type="submit" id="btnRegister">
 					<spring:message code="action.register" />
 				</button>
 			</sec:authorize>
-			
+
 			<button type="submit" id="btnList">
 				<spring:message code="action.list" />
 			</button>
-			
+
 		</div>
 	</div>
 
@@ -61,14 +56,14 @@
 
 	<script>
 		$(document).ready(function() {
-			let formObj = $("#board");
+			let formObj = $("#notice");
 
 			$("#btnRegister").on("click", function() {
 				formObj.submit();
 			});
 
 			$("#btnList").on("click", function() {
-				self.location = "/board/list?page=1&sizePerPage=10";
+				self.location = "/notice/list";
 			});
 
 		});
