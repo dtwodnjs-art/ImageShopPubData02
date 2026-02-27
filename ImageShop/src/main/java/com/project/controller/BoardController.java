@@ -1,5 +1,8 @@
 package com.project.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
@@ -12,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.project.common.domain.CodeLabelValue;
 import com.project.common.domain.PageRequest;
 import com.project.common.domain.Pagination;
 import com.project.common.security.domain.CustomUser;
@@ -58,22 +62,34 @@ public class BoardController {
 	}
 
 	// 게시글 목록 페이지
-	@GetMapping("/list")
-	public void list(@ModelAttribute("pgrq") PageRequest pageRequest  ,Model model) throws Exception {
-		if(pageRequest.getPage() == 0) {
-			pageRequest = new PageRequest(); 
-		}
-		//4페이지를 보여주는 기능 31~40 가져온다.
-		model.addAttribute("list", service.list(pageRequest));
-		//페이지를 보여주는 기능([prev=true] 1, 2, 3, [4], 5, 6, 7, 8, 9 10 [next=true]) 
-		Pagination pagination = new Pagination();
-		//현재페이지 4, 한페이지당 보여주는 갯수 10
-		pagination.setPageRequest(pageRequest);
-		//리스트 전체갯수 셋팅하고, 다시계산한다. 
-		pagination.setTotalCount(service.count());
-		//화면 페이지를 보여주는 정보 제공한다. 
-		model.addAttribute("pagination", pagination);
-	}
+    @GetMapping("/list")
+    public void list(@ModelAttribute("pgrq") PageRequest pageRequest  ,Model model) throws Exception {
+        if(pageRequest.getPage() == 0) {
+            pageRequest = new PageRequest(); 
+        }
+        //4페이지를 보여주는 기능 31~40 가져온다.
+        model.addAttribute("list", service.list(pageRequest));
+        //페이지를 보여주는 기능([prev=true] 1, 2, 3, [4], 5, 6, 7, 8, 9 10 [next=true]) 
+        Pagination pagination = new Pagination();
+        //현재페이지 4, 한페이지당 보여주는 갯수 10
+        pagination.setPageRequest(pageRequest);
+        //리스트 전체갯수 셋팅하고, 다시계산한다. 
+        pagination.setTotalCount(service.count(pageRequest));
+        //화면 페이지를 보여주는 정보 제공한다. 
+        model.addAttribute("pagination", pagination);
+
+        // 검색 유형의 코드명과 코드값을 정의한다. 
+        List<CodeLabelValue> searchTypeCodeValueList = new ArrayList<CodeLabelValue>(); 
+        searchTypeCodeValueList.add(new CodeLabelValue("n", "---")); 
+        searchTypeCodeValueList.add(new CodeLabelValue("t", "Title")); 
+        searchTypeCodeValueList.add(new CodeLabelValue("c", "Content")); 
+        searchTypeCodeValueList.add(new CodeLabelValue("w", "Writer")); 
+        searchTypeCodeValueList.add(new CodeLabelValue("tc", "Title OR Content")); 
+        searchTypeCodeValueList.add(new CodeLabelValue("cw", "Content OR Writer"));
+        searchTypeCodeValueList.add(new CodeLabelValue("tcw", "Title OR Content OR Writer")); 
+        model.addAttribute("searchTypeCodeValueList", searchTypeCodeValueList);
+
+    }
 
 	// 게시글 상세 페이지
 	@GetMapping("/read")
