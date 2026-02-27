@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%> 
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
-
+<link rel="stylesheet" href="/css/common/menu.css">
 <div align="right"> 
  <table> 
   <tr> 
@@ -13,7 +13,9 @@
     	<!--회원게시판리스트 --> 
    		<td width="120"><a href="/board/list">회원게시판리스트</a></td>
    		<!--공지사항리스트 --> 
-		<td width="120"><a href="/notice/list"><spring:message code="menu.notice.member" /></a></td>    
+		<td width="120"><a href="/notice/list"><spring:message code="menu.notice.member" /></a></td>  
+		<!--상품리스트 --> 
+			<td width="120"><a href="/item/list">상품리스트</a></td>     
    </sec:authorize> 
    
    <!-- 회원(인가: 관리자, 회원, 메니저)  --> 
@@ -29,7 +31,9 @@
    			<!--회원게시판리스트 --> 
    		    <td width="120"><a href="/board/list">회원게시판리스트</a></td>  
    		    <!--공지사항리스트 --> 
-			<td width="120"><a href="/notice/list"><spring:message code="menu.notice.member" /></a></td>       
+			<td width="120"><a href="/notice/list"><spring:message code="menu.notice.member" /></a></td>
+			<!--상품리스트 --> 
+			<td width="120"><a href="/item/list">상품리스트</a></td>       
    		</sec:authorize> 
 
    		<!-- 인증완료, (인가: 회원)일때 들어갈 메뉴  --> 
@@ -37,7 +41,9 @@
    			<!--회원게시판리스트 --> 
    		    <td width="120"><a href="/board/list">회원게시판리스트</a></td> 
    		    <!--공지사항리스트 --> 
-			<td width="120"><a href="/notice/list"><spring:message code="menu.notice.member" /></a></td>       
+			<td width="120"><a href="/notice/list"><spring:message code="menu.notice.member" /></a></td> 
+			<!--상품리스트 --> 
+			<td width="120"><a href="/item/list">상품리스트</a></td>         
    		</sec:authorize> 
       
    </sec:authorize> 

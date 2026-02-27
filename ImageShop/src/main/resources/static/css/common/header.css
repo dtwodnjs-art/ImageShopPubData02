@@ -1,0 +1,56 @@
+/* 1. 상단 모든 div 요소를 한 줄로 통합 */
+body > div[align="right"] {
+    display: flex;
+    justify-content: flex-end; /* 오른쪽 정렬 */
+    align-items: center;       /* 세로 중앙 정렬 */
+    background-color: #ffffff;
+    padding: 5px 40px;
+    gap: 15px;                 /* 메뉴 간격 */
+    border-bottom: none;       /* 중간 선 제거 */
+}
+
+/* 2. 테이블 구조 무력화 (한 줄 정렬의 핵심) */
+div[align="right"] table {
+    display: inline-block;     /* 테이블을 인라인으로 변경 */
+    margin: 0;
+    border: none !important;
+}
+
+div[align="right"] tr {
+    display: flex;             /* 행을 flex로 변경하여 td들을 나열 */
+    flex-direction: row;
+    align-items: center;
+}
+
+div[align="right"] td {
+    width: auto !important;    /* JSP에 설정된 width="120" 등을 무시 */
+    padding: 0 10px;           /* 일정한 간격 부여 */
+    border: none !important;
+}
+
+/* 3. 메뉴 링크 디자인 */
+div[align="right"] a {
+    text-decoration: none;
+    color: #5f6368;
+    font-size: 14px;
+    font-weight: 600;
+    white-space: nowrap;       /* 줄바꿈 방지 */
+    transition: color 0.2s;
+}
+
+div[align="right"] a:hover {
+    color: #1a73e8;            /* 호버 시 메인 블루 */
+}
+
+/* 4. 불필요한 구분선(hr) 제거 */
+hr {
+    display: none;             /* header와 menu 사이의 <hr>을 숨김 */
+}
+
+/* 5. 사용자 이름 텍스트(principal.username) 스타일 */
+sec\:authentication, 
+div[align="right"] td:contains('님') {
+    font-size: 13px;
+    color: #202124;
+    font-weight: bold;
+}

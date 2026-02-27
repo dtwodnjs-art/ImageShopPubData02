@@ -1,0 +1,60 @@
+/* 1. 상단 레이아웃 통합 및 한 줄 정렬 */
+/* 헤더와 메뉴를 포함한 모든 최상위 div를 타겟팅합니다. */
+div[align="center"], 
+div[align="right"] {
+    display: inline-flex;      /* 인라인 플렉스로 변경하여 요소들을 옆으로 붙임 */
+    justify-content: center;
+    align-items: center;
+    padding: 0;
+    margin: 0;
+    vertical-align: middle;
+}
+
+/* 전체를 감싸는 바 스타일 (필요 시 부모 요소에 적용) */
+body {
+    padding-top: 10px;
+}
+
+/* 2. 테이블 및 행/열 구조 해체 */
+table {
+    display: inline-block;     /* 테이블이 차지하는 한 줄 영역을 해제 */
+    border-collapse: collapse;
+    margin: 0 !important;
+}
+
+tr {
+    display: flex;             /* 행 내부 요소들을 가로로 나열 */
+    flex-direction: row;
+    align-items: center;
+}
+
+td {
+    width: auto !important;    /* JSP에 지정된 width="80", "120" 등을 무시 */
+    padding: 10px 15px !important;
+    border: none !important;
+    white-space: nowrap;       /* 메뉴 글자 줄바꿈 방지 */
+}
+
+/* 3. 구분선(hr) 강제 제거 */
+/* hr은 무조건 한 줄을 차지하므로 보이지 않게 처리해야 한 줄 정렬이 가능합니다. */
+hr {
+    display: none !important;
+}
+
+/* 4. 링크 텍스트 스타일 통일 */
+a {
+    text-decoration: none;
+    color: #5f6368;
+    font-size: 14px;
+    font-weight: 600;
+    transition: all 0.2s ease;
+}
+
+a:hover {
+    color: #1a73e8;            /* 메인 블루 강조 */
+}
+
+/* 5. 메뉴 간 경계선 추가 (선택 사항) */
+td + td {
+    border-left: 1px solid #e8eaed !important;
+}

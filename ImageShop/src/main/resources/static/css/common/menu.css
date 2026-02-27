@@ -1,0 +1,57 @@
+/* 1. 메뉴 컨테이너 레이아웃 */
+div[align="right"] {
+    background-color: #ffffff;
+    padding: 10px 40px;
+    border-bottom: 1px solid #e8eaed;
+}
+
+/* 2. 테이블 기반 메뉴 정렬 제거 및 현대화 */
+div[align="right"] table {
+    display: inline-block;
+    border-collapse: collapse;
+}
+
+div[align="right"] td {
+    padding: 0; /* 기존 width="120" 대신 여백으로 조절 */
+    text-align: center;
+}
+
+/* 3. 메뉴 링크(메뉴 아이템) 스타일 */
+div[align="right"] td a {
+    display: block;
+    padding: 12px 20px;
+    color: #5f6368; /* 평상시 차분한 그레이 */
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 600;
+    transition: all 0.2s ease;
+    border-radius: 6px;
+}
+
+/* 마우스 오버 효과 */
+div[align="right"] td a:hover {
+    background-color: #f1f3f4;
+    color: #1a73e8; /* 시스템 메인 블루 */
+}
+
+/* 현재 위치 강조 (선택 사항: 나중에 활성화 클래스 추가 시 사용) */
+div[align="right"] td a.active {
+    color: #1a73e8;
+    background-color: #e8f0fe;
+}
+
+/* 4. 구분선(hr) 제거 및 그림자 효과 */
+hr {
+    border: none;
+    height: 1px;
+    background-color: #e8eaed;
+    margin: 0;
+}
+
+/* 상단 메뉴바에 은은한 그림자 추가 */
+div[align="right"] {
+    position: sticky; /* 스크롤 시 상단 고정 */
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
