@@ -11,36 +11,47 @@ import com.project.mapper.ItemMapper;
 
 @Service
 public class ItemServiceImpl implements ItemService {
-	
-	@Autowired 
-	private ItemMapper mapper;
-    
-	@Transactional
-	@Override
-	public int register(Item item) throws Exception {
-		
-		return mapper.register(item);
-	}
+   @Autowired 
+   private ItemMapper mapper;
 
-	@Override
-	public List<Item> list() throws Exception {
-		return mapper.list();
-	}
+   @Transactional
+   @Override
+   public int register(Item item) throws Exception {
+      return mapper.register(item);
+   }
 
-	@Override
-	public String getPreview(Item item) throws Exception {
-		
-		return mapper.getPreview(item);
-	}
+   @Override
+   public List<Item> list() throws Exception {
+      return mapper.list();
+   }
 
-	@Override
-	public String getPicture(Item item) throws Exception {
-		return mapper.getPicture(item);
-	}
+   @Override
+   public String getPreview(Item item) throws Exception {
+      return mapper.getPreview(item);
+   }
 
-	@Override
-	public Item read(Item Item) throws Exception {
-		return mapper.read(Item);
-	} 
+   @Override
+   public String getPicture(Item item) throws Exception {
+      return mapper.getPicture(item);
+   }
 
+   @Override
+   public Item read(Item item) throws Exception {
+      return mapper.read(item);
+   }
+
+   @Transactional
+   @Override
+   public int modify(Item item) throws Exception {
+      
+      return mapper.modify(item);
+   }
+
+   @Transactional
+   @Override
+   public int remove(Item item) throws Exception {
+      return mapper.remove(item); 
+   }
+
+   
 }

@@ -23,9 +23,7 @@
 		<h2>
 			<spring:message code="item.header.list" />
 		</h2>
-		<!-- 검색 폼 영역.	-->
-
-
+		<!-- 검색 폼영역 -->
 
 		<sec:authorize access="hasRole('ROLE_ADMIN')">
 			<a href="/item/register"><spring:message code="action.new" /></a>
@@ -33,19 +31,13 @@
 
 		<table border="1">
 			<tr>
-				<th align="center" width="80"><spring:message
-						code="item.itemId" /></th>
-				<th align="center" width="320"><spring:message
-						code="item.itemName" /></th>
-				<th align="center" width="100"><spring:message
-						code="item.itemPrice" /></th>
-
+				<th align="center" width="80"><spring:message code="item.itemId" /></th>
+				<th align="center" width="320"><spring:message code="item.itemName" /></th>
+				<th align="center" width="100"><spring:message code="item.itemPrice" /></th>
 				<sec:authorize access="hasRole('ROLE_ADMIN')">
 					<th align="center" width="80"><spring:message code="item.edit" /></th>
-					<th align="center" width="80"><spring:message
-							code="item.remove" /></th>
+					<th align="center" width="80"><spring:message code="item.remove" /></th>
 				</sec:authorize>
-
 				<sec:authorize access="hasRole('ROLE_MEMBER')">
 					<th align="center" width="80"><spring:message code="item.read" /></th>
 				</sec:authorize>
@@ -54,19 +46,14 @@
 			<c:choose>
 				<c:when test="${empty itemList}">
 					<tr>
-						<sec:authorize
-							access="!hasRole('ROLE_ADMIN') AND !hasRole('ROLE_MEMBER')">
-							<td colspan="3"><spring:message code="common.listEmpty" />
-							</td>
+						<sec:authorize access="!hasRole('ROLE_ADMIN') AND !hasRole('ROLE_MEMBER')">
+							<td colspan="3"><spring:message code="common.listEmpty" /></td>
 						</sec:authorize>
 						<sec:authorize access="hasRole('ROLE_ADMIN')">
-							<td colspan="5"><spring:message code="common.listEmpty" />
-							</td>
+							<td colspan="5"><spring:message code="common.listEmpty" /></td>
 						</sec:authorize>
-
 						<sec:authorize access="hasRole('ROLE_MEMBER')">
-							<td colspan="4"><spring:message code="common.listEmpty" />
-							</td>
+							<td colspan="4"><spring:message code="common.listEmpty" /></td>
 						</sec:authorize>
 					</tr>
 				</c:when>
@@ -78,24 +65,23 @@
 							<td align="right">${item.price}원</td>
 							<sec:authorize access="hasRole('ROLE_ADMIN')">
 								<td align="center">
-								<a href="/item/modify?itemId=${item.itemId}"><spring:message
-											code="item.edit" /></a></td>
+									<a href="/item/modify?itemId=${item.itemId}">
+									<spring:message code="item.edit" /></a></td>
 								<td align="center">
-								<a href="/item/remove?itemId=${item.itemId}"><spring:message
-											code="item.remove" /></a></td>
+									<a href="/item/remove?itemId=${item.itemId}">
+										<spring:message code="item.remove" /></a></td>
 							</sec:authorize>
-
 							<sec:authorize access="hasRole('ROLE_MEMBER')">
-								<td align="center"><a href="/item/read?itemId=${item.itemId}"><spring:message
-											code="item.read" /></a></td>
+								<td align="center">
+									<a href="/item/read?itemId=${item.itemId}">
+										<spring:message code="item.read" /></a></td>
 							</sec:authorize>
-
 						</tr>
 					</c:forEach>
 				</c:otherwise>
 			</c:choose>
 		</table>
-		<!-- 페이징네비게이션 부분-->
+		<!-- 페이징네비게이션추가 -->
 		<hr>
 
 	</div>

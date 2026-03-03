@@ -22,6 +22,7 @@
 		<h2>
 			<spring:message code="item.header.register" />
 		</h2>
+
 		<form:form modelAttribute="item" action="/item/register" enctype="multipart/form-data" method="post">
 			<table>
 				<tr>
@@ -35,6 +36,7 @@
 					<td><font color="red"><form:errors path="price" /></font></td>
 				</tr>
 				<tr>
+
 					<td><spring:message code="item.itemFile" /></td>
 					<td><input type="file" name="picture" /></td>
 					<td></td>
@@ -43,14 +45,17 @@
 					<td><spring:message code="item.itemPreviewFile" /></td>
 					<td><input type="file" name="preview" /></td>
 					<td></td>
+
 				</tr>
 				<tr>
+
 					<td><spring:message code="item.itemDescription" /></td>
 					<td><form:textarea path="description" /></td>
 					<td><form:errors path="description" /></td>
 				</tr>
 			</table>
 		</form:form>
+
 
 		<div>
 			<sec:authorize access="hasRole('ROLE_ADMIN')">
@@ -79,7 +84,6 @@
 			$("#btnList").on("click", function() {
 				self.location = "/item/list";
 			});
-
 		});
 	</script>
 </body>

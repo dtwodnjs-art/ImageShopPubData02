@@ -12,9 +12,12 @@ public interface ItemMapper {
 
 	public String getPreview(Item item) throws Exception;
 
-	public String getPicture(Item item) throws Exception;
+	public String getPicture(Item item)throws Exception;
 
-	public Item read(Item item) throws Exception;
+	public Item read(Item item)throws Exception;
 
+	public int modify(Item item) throws Exception;
+
+	public int remove(Item item) throws Exception;
 
 }
