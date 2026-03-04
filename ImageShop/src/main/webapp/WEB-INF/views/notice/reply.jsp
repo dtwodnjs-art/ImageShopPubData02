@@ -70,18 +70,30 @@ $(document).ready(function() {
         });
     });
 
-    // 댓글 삭제 - CSRF 제거 버전
-    $(document).on("click", ".btnReplyDel", function() {
+ // reply.jsp 내의 삭제 이벤트 부분
+    $(document).on("click", ".btnReplyDel", function(e) {
+        // [중요] 부모 요소(공지사항 삭제 버튼 등)로 이벤트가 퍼지는 것을 막습니다.
+        e.stopPropagation(); 
+        e.preventDefault();
+
         const rno = $(this).data("rno");
         const writer = $(this).data("writer");
-        if(confirm("삭제하시겠습니까?")) {
+
+        if(confirm("댓글을 삭제하시겠습니까?")) {
             $.ajax({
                 type: 'delete',
                 url: '/replies/' + rno,
                 headers: { "Content-Type": "application/json" },
                 data: JSON.stringify({ replyer: writer }),
-                success: function(res) { if(res === "SUCCESS") getReplyList(); },
-                error: function(xhr) { alert("삭제 실패: " + xhr.status); }
+                success: function(res) {
+                    if(res === "SUCCESS") {
+                        alert("삭제되었습니다.");
+                        getReplyList();
+                    }
+                },
+                error: function(xhr) {
+                    alert("삭제 실패: " + xhr.status);
+                }
             });
         }
     });

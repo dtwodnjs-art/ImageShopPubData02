@@ -27,4 +27,6 @@ public interface MemberMapper {
 
 	public int countAll() throws Exception;
 
+	public int getCoin(Member member) throws Exception;
+
 }

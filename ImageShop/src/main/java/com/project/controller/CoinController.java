@@ -11,7 +11,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.project.common.security.domain.CustomUser;
@@ -75,6 +74,22 @@ public class CoinController {
 		Member member = customUser.getMember();
 		int userNo = member.getUserNo();
 		model.addAttribute("list", service.list(userNo));
+	}
+
+	// 코인 부족 예외 처리
+	@GetMapping("/notEnoughCoin")
+	@PreAuthorize("hasRole('ROLE_MEMBER')")
+	public void notEnoughCoin(Model model) throws Exception {
+
+	}
+
+	// 사용자 구매 내역 보기 요청을 처리한다.
+	@GetMapping("/listPay")
+	@PreAuthorize("hasRole('ROLE_MEMBER')")
+	public void listPayHistory(Model model, Authentication authentication) throws Exception {
+		CustomUser customUser = (CustomUser) authentication.getPrincipal();
+		Member member = customUser.getMember();
+		model.addAttribute("list", service.listPayHistory(member));
 	}
 
 }

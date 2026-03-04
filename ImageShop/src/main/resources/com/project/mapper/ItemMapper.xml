@@ -25,14 +25,15 @@
    ]]>
    </select>
 
-   <!-- 상품 수정 처리 -->
    <update id="modify">
-      UPDATE item SET item_name = #{itemName}, price =
-      #{price}, description = #{description},
-      picture_url = #{pictureUrl},
-      preview_url = #{previewUrl}
-      WHERE item_id = #{itemId}
-   </update>
+    UPDATE item 
+    SET item_name = #{itemName}, 
+        price = #{price}, 
+        description = #{description, jdbcType=VARCHAR},
+        picture_url = #{pictureUrl, jdbcType=VARCHAR},
+        preview_url = #{previewUrl, jdbcType=VARCHAR}
+    WHERE item_id = #{itemId}
+</update>
 
    <!-- 상품 삭제 처리 -->
    <delete id="remove">
