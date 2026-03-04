@@ -17,7 +17,7 @@ public class ReplyController {
     @Autowired
     private ReplyService service;
 
-    // [추가] 댓글 등록
+    
     @PreAuthorize("isAuthenticated()")
     @PostMapping("/register")
     public ResponseEntity<String> register(@RequestBody Reply reply) throws Exception {
@@ -25,13 +25,13 @@ public class ReplyController {
         return new ResponseEntity<>("SUCCESS", HttpStatus.OK);
     }
 
-    // [추가] 특정 게시글의 댓글 목록 가져오기
+    
     @GetMapping("/list/{noticeNo}")
     public ResponseEntity<List<Reply>> list(@PathVariable("noticeNo") int noticeNo) throws Exception {
         return new ResponseEntity<>(service.list(noticeNo), HttpStatus.OK);
     }
 
-    // 댓글 삭제 (기존 코드 유지 및 보완)
+  
     @PreAuthorize("hasRole('ROLE_ADMIN') or principal.username == #reply.replyer")
     @DeleteMapping("/{replyNo}")
     public ResponseEntity<String> remove(@PathVariable("replyNo") int replyNo, @RequestBody Reply reply) throws Exception {

@@ -176,29 +176,61 @@ public class ItemController {
 	}
 
 	// 상품 상세 페이지
-	@GetMapping("/read")
+	/*@GetMapping("/read")
 	public String read(Item item, Model model) throws Exception {
 		Item _item = itemService.read(item);
-		model.addAttribute("item", _item);
+		if(item != null) {
+			model.addAttribute("item", _item);
+		}else {
+			throw new Exception("에러발생입니다.");
+		
+		}
+		
 		return "item/read";
+	}*/
+	
+	@GetMapping("/read")
+	public String read(Item item, Model model) throws Exception {
+	    Item _item = itemService.read(item);
+	    
+	    // 이 부분이 핵심입니다!
+	    if (_item == null) {
+	        // 데이터가 없으면 예외를 발생시켜서 핸들러로 보냅니다.
+	        throw new Exception("존재하지 않는 상품입니다.");
+	    }
+	    
+	    model.addAttribute("item", _item);
+	    return "item/read";
 	}
 
 	// 상품 구매 요청을 처리한다.
 	@PostMapping("/buy")
 	@PreAuthorize("hasAnyRole('ROLE_MEMBER','ROLE_ADMIN')")
-	public String buy(int itemId, RedirectAttributes rttr, Authentication authentication) throws Exception {
-		//인증된 사용자정보를 가져오고, 
+	public String buy(Item item, RedirectAttributes rttr, Authentication authentication) throws Exception {
+		// 인증된 사용자정보를 가져오고,
 		CustomUser customUser = (CustomUser) authentication.getPrincipal();
 		Member member = customUser.getMember();
-		int userNo = member.getUserNo();
-		//member.setCoin(memberService.getCoin(userNo));
+		//int userNo = member.getUserNo();
+		// 해당되는 회원코인정보를 가져와서 저장한다.
+		member.setCoin(memberService.getCoin(member));
 
-		//Item item = itemService.read(itemId);
-		//userItemService.register(member, item);
-		String message = messageSource.getMessage("item.purchaseComplete", null, Locale.KOREAN);
-		rttr.addFlashAttribute("msg", message);
+		// 상품의 대한정보를 가져온다.
+		Item _item = itemService.read(item);
+		// 장바구니 생성
+		int count = userItemService.register(member, item);
+		if (count != 0) {
+			rttr.addFlashAttribute("msg", "구매가 완료되었습니다.");
+		} else {
+			rttr.addFlashAttribute("msg", "구매가 실패되었습니다..");
+		}
 
 		return "redirect:/item/success";
+	}
+
+	// 상품 구매 성공 페이지를 표시한다.
+	@GetMapping("/success")
+	public String success() throws Exception {
+		return "item/success";
 	}
 
 	// 썸네일 미리보기 이미지 표시

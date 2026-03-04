@@ -12,7 +12,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Image Shop</title>
-<link rel="stylesheet" href="/css/board/read.css">
+<link rel="stylesheet" href="/css/board/modify.css">
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
@@ -20,21 +20,21 @@
 	<jsp:include page="/WEB-INF/views/common/menu.jsp" />
 	<div align="center">
 		<h2>
-			<spring:message code="item.header.read" />
+			<spring:message code="item.header.modify" />
 		</h2>
 
-		<form:form modelAttribute="item"  action="/item/buy" method="post">
+		<form:form modelAttribute="item" action="/item/modify"	enctype="multipart/form-data" method="post">
 			<form:hidden path="itemId" />
 			
 			<table>
 				<tr>
 					<td><spring:message code="item.itemName" /></td>
-					<td><form:input path="itemName" readonly="true"/></td>
+					<td><form:input path="itemName" /></td>
 					<td><font color="red"><form:errors path="itemName" /></font></td>
 				</tr>
 				<tr>
 					<td><spring:message code="item.itemPrice" /></td>
-					<td><form:input path="price" readonly="true" />&nbsp;원</td>
+					<td><form:input path="price" />&nbsp;원</td>
 					<td><font color="red"><form:errors path="price" /></font></td>
 				</tr>
 				<tr>
@@ -45,6 +45,17 @@
 					<td><spring:message code="item.preview" /></td>
 					<td><img src="/item/display?itemId=${item.itemId}" width="210"></td>
 				<tr>
+					<td><spring:message code="item.itemFile" /></td>
+					<td><input type="file" name="picture" /></td>
+					<td></td>
+				</tr>
+				<tr>
+					<td><spring:message code="item.itemPreviewFile" /></td>
+					<td><input type="file" name="preview" /></td>
+					<td></td>
+
+				</tr>
+				<tr>
 					<td><spring:message code="item.itemDescription" /></td>
 					<td><form:textarea path="description" /></td>
 					<td><form:errors path="description" /></td>
@@ -54,12 +65,16 @@
 
 
 		<div>
-			<button type="submit" id="btnBuy">
-				<spring:message code="action.buy" />
-			</button>
+			<sec:authorize access="hasRole('ROLE_ADMIN')">
+				<button type="submit" id="btnModify">
+					<spring:message code="action.modify" />
+				</button>
+			</sec:authorize>
+
 			<button type="submit" id="btnList">
 				<spring:message code="action.list" />
 			</button>
+
 		</div>
 	</div>
 
@@ -68,7 +83,8 @@
 	<script>
 		$(document).ready(function() {
 			let formObj = $("#item");
-			$("#btnBuy").on("click", function() {
+
+			$("#btnModify").on("click", function() {
 				formObj.submit();
 			});
 
